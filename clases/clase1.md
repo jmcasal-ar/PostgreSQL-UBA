@@ -5,7 +5,7 @@
 Para seguir el ejemplo:
 
    1. Abrir el pdf de la clase 1.
-   2. Instalar el postgresql y el 7zip (para descomprimir el archivo .zip). [ver software](../software.md)
+   2. Instalar el postgresql y el 7zip (para descomprimir el archivo .zip).
    3. Bajarse la base a usaurio de la EAH 2015 de la página de la [DGEyC-CABA](https://www.estadisticaciudad.gob.ar/eyc/?cat=93)
    4. Descomprimir el archivo en un carpeta local
    5. Ir a [txt-to-sql](https://codenautas.com/txt-to-sql) para convertir el .txt en un archivo .sql
@@ -13,7 +13,7 @@ Para seguir el ejemplo:
       2. Presionar el botón **generar**
       3. Hacer click en el link **descargar**
    6. Abrir el programa llamado pgAdmin (puede ser el pgAdmin III o pgAdmin 4). 
-      1. Abrir la herramienta para ejecutar SQL ![ejecutarSQL](../imagenes/ejecutarSQL.png)
+      1. Abrir la herramienta para ejecutar SQL
       2. Abrir el .sql descargado
       3. Ejecutar las instrucciones
       4. Abrir una nueva ventana y correr los comandos que acá se muestran
@@ -72,12 +72,12 @@ select v2_2, sum(fexp)*100.0/
   order by v2_2;
 ```
 
-Agregando un filtro para obtener solo un registro por vivienda (en este caso indicando que el número de hogar es 1)
+Agregando un filtro para obtener solo un registro por vivienda (en este caso indicando que el número de hogar es 1) y redondeamos en un decimal.
 ```sql
-select v2_2, sum(fexp)*100.0/
+select v2_2, round(sum(fexp)*100.0/
   (select sum(fexp)
     from eah2015_usuarios_hog
-    where nhogar=1)
+    where nhogar=1),1)
   from eah2015_usuarios_hog
   where nhogar=1
   group by v2_2

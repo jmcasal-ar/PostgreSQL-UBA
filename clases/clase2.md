@@ -123,7 +123,7 @@ WITH viviendas AS (
     FROM eah2015_usuarios_hog
     WHERE nhogar=1)
 SELECT tipo_viv, 
-       SUM(fexp)*100.0/(SELECT SUM(fexp) FROM viviendas)
+       ROUND(SUM(fexp)*100.0/(SELECT SUM(fexp) FROM viviendas),1)
   FROM viviendas
   GROUP BY tipo_viv
   ORDER BY tipo_viv;
@@ -143,7 +143,7 @@ WITH personas AS (
       INNER JOIN eah2015_usuarios_ind i ON h.id=i.id
 )
 SELECT tipo_viv, 
-       SUM(fexp)*100.0/(SELECT SUM(fexp) FROM personas),
+       ROUND(SUM(fexp)*100.0/(SELECT SUM(fexp) FROM personas),1),
        SUM(fexp)
   FROM personas
   GROUP BY tipo_viv
@@ -154,5 +154,6 @@ Siempre hay que verificar con los totales:
 
 ```sql
 SELECT sum(i.fexp)
-  FROM eah2015_usuarios_ind
+  from eah2015_usuarios_hog h
+      inner join eah2015_usuarios_ind i on h.id=i.id
 ```
